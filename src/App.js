@@ -8,7 +8,9 @@ class App extends React.Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   constructor() {
     super()
-    this.state = []
+    this.state = {
+      allTasks: []
+    }
   }
 
   addTask = newTaskName => {
@@ -17,26 +19,32 @@ class App extends React.Component {
       id: new Date(),
       completed: false
     }
-    this.setState([...this.state, newTask])
-  }
-  onInputChange = evt => {
     this.setState({
-        task: evt.target.value
+      allTasks: [...this.state.allTasks, newTask]
     })
+    console.log(this.state.allTasks)
   }
-  onFormSubmit = evt => {
-    evt.preventDefault()
-    this.props.addTask(this.state.task)
+  
+  toggleItem = id => {
     this.setState({
-        task: ""
+      allTasks: this.state.allTasks.map(item => {
+        if(item.id === id) {
+          return {
+            ...item,
+            completed: !item.completed
+          }
+        }else {
+          return item
+        }
+      })
     })
   }
 
   render() {
     return (
       <div>
-        <TodoForm onInputChange={this.onInputChange} onFormSubmit={this.onFormSubmit} />
-        <TodoList />
+        <TodoForm addTask={this.addTask} />
+        <TodoList allTasks={this.state.allTasks} toggleItem={this.toggleItem} />
       </div>
     );
   }
