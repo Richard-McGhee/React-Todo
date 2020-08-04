@@ -8,19 +8,6 @@ class TodoForm extends Component {
         }
     }
 
-    onInputChange = evt => {
-        this.setState({
-            task: evt.target.value
-        })
-    }
-    onFormSubmit = evt => {
-        evt.preventDefault()
-        this.props.addTask(this.state.task)
-        this.setState({
-            task: ""
-        })
-    }
-
     render() { 
         return ( 
             <form>
@@ -28,8 +15,8 @@ class TodoForm extends Component {
                  name="task"
                  placeholder="Enter New Task"
                  value={this.state.task}
-                 onChange={this.onInputChange} />
-                <button onSubmit={this.onFormSubmit}>Add To List</button>
+                 onChange={props.onInputChange} />
+                <button onSubmit={props.onFormSubmit}>Add To List</button>
             </form>
          );
     }

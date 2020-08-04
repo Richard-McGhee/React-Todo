@@ -19,11 +19,23 @@ class App extends React.Component {
     }
     this.setState([...this.state, newTask])
   }
+  onInputChange = evt => {
+    this.setState({
+        task: evt.target.value
+    })
+  }
+  onFormSubmit = evt => {
+    evt.preventDefault()
+    this.props.addTask(this.state.task)
+    this.setState({
+        task: ""
+    })
+  }
 
   render() {
     return (
       <div>
-        <TodoForm addTask={this.addTask} />
+        <TodoForm onInputChange={this.onInputChange} onFormSubmit={this.onFormSubmit} />
         <TodoList />
       </div>
     );
