@@ -13,11 +13,16 @@ class TodoForm extends React.Component {
         })
       }
       onFormSubmit = evt => {
-        evt.preventDefault()
-        this.props.addTask(this.state.task)
-        this.setState({
-          task: ""
-        })
+        if(this.state.task !== ""){
+          evt.preventDefault()
+          this.props.addTask(this.state.task)
+          this.setState({
+            task: ""
+          })
+        }else{
+          evt.preventDefault()
+          alert("Task cannot be empty")
+        }
       }
 
     render() { 
