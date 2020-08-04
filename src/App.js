@@ -24,6 +24,12 @@ class App extends React.Component {
     })
     console.log(this.state.allTasks)
   }
+  clearCompleted = evt => {
+    evt.preventDefault()
+    this.setState({
+      allTasks: this.state.allTasks.filter(item => !item.completed)
+    })
+  }
   
   toggleItem = id => {
     this.setState({
@@ -43,7 +49,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TodoForm addTask={this.addTask} />
+        <TodoForm addTask={this.addTask} clearCompleted={this.clearCompleted} />
         <TodoList allTasks={this.state.allTasks} toggleItem={this.toggleItem} />
       </div>
     );
